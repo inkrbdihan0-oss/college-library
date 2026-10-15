@@ -1,27 +1,703 @@
+
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Колледж кітапханасы</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>College Library | Колледж кітапханасы</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --navy: #102a43;
+    --blue: #176b87;
+    --teal: #20b2aa;
+    --cream: #f5f7fa;
+    --text: #243447;
+    --muted: #718096;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+.container {
+    width: min(1150px, 90%);
+    margin: auto;
+}
+
+/* NAVIGATION */
+.navbar {
+    background: rgba(255,255,255,.96);
+    border-bottom: 1px solid #e8edf2;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-inner {
+    min-height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--navy);
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.logo-icon {
+    background: var(--navy);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    font-size: 23px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 27px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: var(--teal);
+}
+
+.btn {
+    display: inline-block;
+    border: 0;
+    border-radius: 10px;
+    padding: 13px 21px;
+    font-weight: 700;
+    transition: .25s;
+}
+
+.btn-primary {
+    background: var(--teal);
+    color: white;
+    box-shadow: 0 7px 18px rgba(32,178,170,.18);
+}
+
+.btn-primary:hover {
+    background: #15958f;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    border: 1px solid #cbd5e0;
+    color: var(--navy);
+    background: white;
+}
+
+.btn-outline:hover {
+    border-color: var(--teal);
+}
+
+/* HERO */
+.hero {
+    background:
+        radial-gradient(circle at 85% 15%, rgba(32,178,170,.16), transparent 30%),
+        linear-gradient(135deg, #f5f7fa, #eaf4f5);
+    padding: 82px 0 72px;
+    overflow: hidden;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    align-items: center;
+    gap: 55px;
+}
+
+.eyebrow {
+    display: inline-block;
+    color: #147d79;
+    background: #d9f5f0;
+    padding: 7px 13px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 22px;
+}
+
+.hero h1 {
+    font-size: clamp(36px, 4.5vw, 59px);
+    line-height: 1.12;
+    letter-spacing: -2px;
+    color: var(--navy);
+    margin-bottom: 22px;
+}
+
+.hero h1 span {
+    color: var(--teal);
+}
+
+.hero p {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 490px;
+    margin-bottom: 30px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+}
+
+.hero-visual {
+    position: relative;
+    min-height: 390px;
+    border-radius: 28px;
+    background: linear-gradient(145deg, #173b57, #176b87);
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(16,42,67,.18);
+}
+
+.hero-visual::before,
+.hero-visual::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.13);
+}
+
+.hero-visual::before {
+    width: 330px;
+    height: 330px;
+    right: -100px;
+    top: -100px;
+}
+
+.hero-visual::after {
+    width: 240px;
+    height: 240px;
+    left: -80px;
+    bottom: -100px;
+}
+
+.library-art {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+}
+
+.big-book {
+    font-size: 115px;
+    filter: drop-shadow(0 14px 18px rgba(0,0,0,.2));
+    margin-bottom: 15px;
+}
+
+.library-art h3 {
+    font-size: 25px;
+    margin-bottom: 7px;
+}
+
+.library-art p {
+    color: #d7edf0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.floating-card {
+    position: absolute;
+    z-index: 2;
+    bottom: 24px;
+    left: 20px;
+    background: white;
+    border-radius: 13px;
+    padding: 12px 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.1);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* STATS */
+.stats {
+    margin-top: -1px;
+    background: white;
+    padding: 30px 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    border-right: 1px solid #edf0f4;
+}
+
+.stat:last-child {
+    border-right: 0;
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    background: #e0f7f3;
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+}
+
+.stat h3 {
+    font-size: 24px;
+    color: var(--navy);
+}
+
+.stat p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* SECTIONS */
+.section {
+    padding: 82px 0;
+}
+
+.section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.section-heading h2 {
+    font-size: clamp(27px, 3vw, 37px);
+    color: var(--navy);
+    letter-spacing: -1px;
+}
+
+.section-heading p {
+    color: var(--muted);
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.text-link {
+    color: #148a85;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* BOOKS */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.book-card {
+    background: white;
+    border: 1px solid #edf0f4;
+    padding: 16px;
+    border-radius: 18px;
+    transition: .25s;
+}
+
+.book-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(16,42,67,.09);
+}
+
+.book-cover {
+    height: 210px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    margin-bottom: 18px;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.4;
+    box-shadow: inset 6px 0 rgba(0,0,0,.08);
+}
+
+.cover-1 { background: linear-gradient(145deg,#183e35,#47876b); }
+.cover-2 { background: linear-gradient(145deg,#803d37,#d17a56); }
+.cover-3 { background: linear-gradient(145deg,#263c75,#5989c6); }
+.cover-4 { background: linear-gradient(145deg,#664784,#b08ac9); }
+
+.book-category {
+    font-size: 11px;
+    color: #13847e;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+}
+
+.book-card h3 {
+    font-size: 16px;
+    color: var(--navy);
+    margin: 7px 0 5px;
+}
+
+.book-card p {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.book-card .book-btn {
+    margin-top: 15px;
+    width: 100%;
+    background: #eff8f7;
+    color: #147d79;
+    border: 0;
+    border-radius: 9px;
+    padding: 10px;
+    font-weight: 700;
+}
+
+.book-card .book-btn:hover {
+    background: #d9f5f0;
+}
+
+/* ABOUT */
+.about {
+    background: var(--navy);
+    color: white;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about h2 {
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.about p {
+    color: #cbd8e2;
+    margin-bottom: 20px;
+}
+
+.about-list {
+    display: grid;
+    gap: 13px;
+    margin-top: 25px;
+}
+
+.about-list div {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.check {
+    color: #55d6c2;
+    font-size: 20px;
+}
+
+.about-panel {
+    padding: 35px;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 22px;
+    background: rgba(255,255,255,.06);
+}
+
+.about-panel .panel-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.about-panel h3 {
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+/* CONTACT */
+.contact-card {
+    background: white;
+    border: 1px solid #edf0f4;
+    border-radius: 20px;
+    padding: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.contact-card h2 {
+    color: var(--navy);
+    margin-bottom: 8px;
+}
+
+.contact-card p {
+    color: var(--muted);
+}
+
+/* FOOTER */
+footer {
+    background: #0b2033;
+    color: #cbd8e2;
+    padding: 28px 0;
+    font-size: 13px;
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .nav-links { gap: 13px; }
+    .hero-grid { gap: 30px; }
+    .books-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { gap: 30px; }
+}
+
+@media (max-width: 650px) {
+    .nav-inner {
+        padding: 15px 0;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .nav-links {
+        width: 100%;
+        flex-wrap: wrap;
+        font-size: 13px;
+    }
+
+    .hero { padding: 55px 0; }
+    .hero-grid, .about-grid { grid-template-columns: 1fr; }
+    .hero-visual { min-height: 300px; }
+    .big-book { font-size: 85px; }
+    .stats-grid { grid-template-columns: 1fr; gap: 8px; }
+    .stat { border-right: 0; border-bottom: 1px solid #edf0f4; }
+    .stat:last-child { border-bottom: 0; }
+    .section { padding: 58px 0; }
+    .section-heading { align-items: flex-start; flex-direction: column; }
+    .books-grid { gap: 12px; }
+    .book-card { padding: 10px; }
+    .book-cover { height: 155px; padding: 12px; font-size: 14px; }
+    .contact-card { padding: 25px; flex-direction: column; align-items: flex-start; }
+}
+</style>
 </head>
+
 <body>
-    <header>
-                     <h1>Қош келдіңіздер студенттер!</h1>
-        <p>Кітапхана веб-сайтына қош келдіңіз!</p>
-    </header>
 
-    <main>
-        <section id="home">
-            <h2>Басты бет</h2>
-            <p>Біздің колледж кітапханасына қош келдіңіз.</p>
-        </section>
+<nav class="navbar">
+    <div class="container nav-inner">
+        <a href="#home" class="logo">
+            <span class="logo-icon">📚</span>
+            <span>COLLEGE<br>LIBRARY</span>
+        </a>
 
-        <section id="about">
-            <h2>Біз туралы</h2>
-            <p>Біздің кітапхана студенттерге білім алуға
-            және қажетті ақпаратты табуға көмектеседі.</p>
-        </section>
-    </main>
+        <div class="nav-links">
+            <a href="#home">Басты бет</a>
+            <a href="#books">Кітаптар</a>
+            <a href="#about">Біз туралы</a>
+            <a href="#contact">Байланыс</a>
+            <a href="#books" class="btn btn-primary">Кітаптарды қарау</a>
+        </div>
+    </div>
+</nav>
+
+<header class="hero" id="home">
+    <div class="container hero-grid">
+        <div>
+            <span class="eyebrow">БІЛІМ • ДАМУ • БОЛАШАҚ</span>
+            <h1>Білімге бастар жол — <span>кітаптан</span> басталады</h1>
+            <p>
+                Колледж кітапханасының электрондық кеңістігіне қош келдіңіз!
+                Жаңа білім ашыңыз, сүйікті кітаптарыңызды таңдаңыз.
+            </p>
+            <div class="hero-actions">
+                <a href="#books" class="btn btn-primary">Кітаптарды қарау →</a>
+                <a href="#about" class="btn btn-outline">Толығырақ</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="library-art">
+                <div class="big-book">📚</div>
+                <h3>Білім әлемі</h3>
+                <p>Әр кітап — жаңа мүмкіндік</p>
+            </div>
+            <div class="floating-card">✦ Оқу — болашаққа инвестиция</div>
+        </div>
+    </div>
+</header>
+
+<section class="stats">
+    <div class="container stats-grid">
+        <div class="stat">
+            <div class="stat-icon">📖</div>
+            <div><h3>1 200+</h3><p>Кітап қоры</p></div>
+        </div>
+        <div class="stat">
+            <div class="stat-icon">🎓</div>
+            <div><h3>350+</h3><p>Студент оқырман</p></div>
+        </div>
+        <div class="stat">
+            <div class="stat-icon">💻</div>
+            <div><h3>24/7</h3><p>Онлайн қолжетімділік</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="books">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <h2>Танымал кітаптар</h2>
+                <p>Оқырмандар жиі таңдайтын кітаптар топтамасы</p>
+            </div>
+            <a href="#contact" class="text-link">Кітапхана туралы →</a>
+        </div>
+
+        <div class="books-grid">
+            <article class="book-card">
+                <div class="book-cover cover-1">АБАЙ<br>ЖОЛЫ</div>
+                <span class="book-category">Қазақ әдебиеті</span>
+                <h3>Абай жолы</h3>
+                <p>Мұхтар Әуезов</p>
+                <button class="book-btn" onclick="showBook('Абай жолы')">Кітап туралы</button>
+            </article>
+
+            <article class="book-card">
+                <div class="book-cover cover-2">ҚАЗАҚ<br>ӘДЕБИЕТІ</div>
+                <span class="book-category">Әдебиет</span>
+                <h3>Қазақ әдебиеті</h3>
+                <p>Оқу материалдары</p>
+                <button class="book-btn" onclick="showBook('Қазақ әдебиеті')">Кітап туралы</button>
+            </article>
+
+            <article class="book-card">
+                <div class="book-cover cover-3">БАҒДАРЛАМАЛАУ<br>НЕГІЗДЕРІ</div>
+                <span class="book-category">IT және технология</span>
+                <h3>Бағдарламалау негіздері</h3>
+                <p>IT оқулықтары</p>
+                <button class="book-btn" onclick="showBook('Бағдарламалау негіздері')">Кітап туралы</button>
+            </article>
+
+            <article class="book-card">
+                <div class="book-cover cover-4">ӘЛЕМ<br>ТАРИХЫ</div>
+                <span class="book-category">Тарих</span>
+                <h3>Әлем тарихы</h3>
+                <p>Тарихи оқу құралы</p>
+                <button class="book-btn" onclick="showBook('Әлем тарихы')">Кітап туралы</button>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section about" id="about">
+    <div class="container about-grid">
+        <div>
+            <span class="eyebrow">БІЗ ТУРАЛЫ</span>
+            <h2>Әр оқырманға — жаңа мүмкіндік</h2>
+            <p>
+                Колледж кітапханасы студенттер мен оқытушыларға
+                білім алуға, ізденуге және шығармашылықты дамытуға көмектеседі.
+            </p>
+            <div class="about-list">
+                <div><span class="check">✓</span> Оқу материалдары мен әдебиеттер</div>
+                <div><span class="check">✓</span> Ыңғайлы әрі түсінікті сайт</div>
+                <div><span class="check">✓</span> Білімді үздіксіз жетілдіру</div>
+            </div>
+        </div>
+
+        <div class="about-panel">
+            <div class="panel-icon">🏛️</div>
+            <h3>Білім ордасы</h3>
+            <p>
+                Кітапхана — білім мен ізденіс тоғысатын орта.
+                Өзіңізге қажетті ақпаратты тауып, жаңа дүниелерді таныңыз.
+            </p>
+            <a href="#books" class="btn btn-primary">Кітаптарды зерттеу →</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="contact">
+    <div class="container">
+        <div class="contact-card">
+            <div>
+                <h2>Оқу сапарыңызды бүгін бастаңыз</h2>
+                <p>Кітаптарды қарап, өзіңізге қызықты бағытты таңдаңыз.</p>
+            </div>
+            <a href="#books" class="btn btn-primary">Кітаптарды көру →</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container footer-inner">
+        <p>© 2026 College Library. Колледж кітапханасы.</p>
+        <p>Білім — болашақтың кілті 📚</p>
+    </div>
+</footer>
+
+<script>
+function showBook(title) {
+    alert('«' + title + '» кітабы таңдалды. Толық ақпаратты кітапханадан білуге болады.');
+}
+</script>
+
 </body>
 </html>
